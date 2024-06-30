@@ -14,6 +14,7 @@ matplotlib = "^3.9.0"
 aiogram = "^3.7.0"
 pydantic = "^2.7.3"
 pydantic-settings = "^2.3.1"
+elastic-apm = "^6.22.3"
 
 
 [tool.poetry.group.dev.dependencies]
