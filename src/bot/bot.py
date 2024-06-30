@@ -1,8 +1,9 @@
 from aiogram import Bot, Dispatcher, types
-from src.bot.view import TelegramWebhookView
-from src.core.configs import settings
 from aiogram.filters import CommandStart
 from aiogram.types import Message
+
+from src.bot.view import TelegramWebhookView
+from src.core.configs import settings
 
 
 async def command_start_handler(message: Message) -> None:
@@ -15,9 +16,9 @@ class CustomDispatcher(Dispatcher):
         update: types.Update,
     ):
         print(dict(update))
-        #await metrics_sender_service.send_metrics(dict(update))
+        # await metrics_sender_service.send_metrics(dict(update))
         return await super().process_update(update)
-    
+
 
 async def telegram_view_factory() -> TelegramWebhookView:
     bot = Bot(token=settings.TELEGRAM_API_KEY)

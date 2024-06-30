@@ -1,5 +1,3 @@
-from pydantic_settings import BaseSettings
-
 from src.core.configs.telegram import TelegramSettings
 
 
