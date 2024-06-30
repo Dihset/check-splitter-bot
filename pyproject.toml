@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "check-splitter-bot"
+version = "0.1.0"
+description = ""
+authors = ["Egor <slamihin123@gmail.com>"]
+readme = "README.md"
+packages = [{include = "check_splitter_bot"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytesseract = "^0.3.10"
+opencv-python = "^4.9.0.80"
+matplotlib = "^3.9.0"
+aiogram = "^3.7.0"
+pydantic = "^2.7.3"
+pydantic-settings = "^2.3.1"
+
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.25.0"
+ipykernel = "^6.29.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
