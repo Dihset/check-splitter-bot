@@ -1,23 +1,14 @@
-from aiogram import Bot, Dispatcher, types
-from aiogram.filters import CommandStart
-from aiogram.types import Message
+import logging
 
+from aiogram import Bot, Dispatcher, F
+from aiogram.filters import Command, CommandStart
+
+from src.bot.handlers.add_friends_handlers import start_add_friend_handler
+from src.bot.handlers.start_handler import start_handler
 from src.bot.view import TelegramWebhookView
 from src.core.configs import settings
 
-
-async def command_start_handler(message: Message) -> None:
-    await message.answer(f"Hello, {message.from_user.full_name}!")
-
-
-class CustomDispatcher(Dispatcher):
-    async def process_update(
-        self,
-        update: types.Update,
-    ):
-        print(dict(update))
-        # await metrics_sender_service.send_metrics(dict(update))
-        return await super().process_update(update)
+logger = logging.getLogger(__name__)
 
 
 async def telegram_view_factory() -> TelegramWebhookView:
@@ -25,6 +16,9 @@ async def telegram_view_factory() -> TelegramWebhookView:
     await bot.set_webhook(settings.TELEGRAM_WEB_HOOK)
 
     dispatcher = Dispatcher()
-    dispatcher.message.register(command_start_handler, CommandStart())
+    dispatcher.message.register(start_handler, CommandStart())
+    dispatcher.callback_query.register(start_add_friend_handler, F.data == 'friend')
+    dispatcher.message.register(start_add_friend_handler, Command("friend"))
+
 
     return TelegramWebhookView(dispatcher=dispatcher, bot=bot)
