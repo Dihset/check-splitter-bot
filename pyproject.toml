@@ -8,9 +8,6 @@ packages = [{include = "check_splitter_bot"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-pytesseract = "^0.3.10"
-opencv-python = "^4.9.0.80"
-matplotlib = "^3.9.0"
 aiogram = "^3.7.0"
 pydantic = "^2.7.3"
 pydantic-settings = "^2.3.1"
