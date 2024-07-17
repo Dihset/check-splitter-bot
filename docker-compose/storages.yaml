@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "45432:5432"
+    env_file:
+      - ../.env
+    environment:
+      POSTGRES_DB: $POSTGRES_DB
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD

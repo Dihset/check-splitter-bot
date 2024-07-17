@@ -12,6 +12,9 @@ aiogram = "^3.7.0"
 pydantic = "^2.7.3"
 pydantic-settings = "^2.3.1"
 elastic-apm = "^6.22.3"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.31"}
+asyncpg = "^0.29.0"
+punq = "^0.7.0"
 
 
 [tool.poetry.group.dev.dependencies]
