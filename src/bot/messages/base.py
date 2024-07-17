@@ -1,10 +1,17 @@
-import abc
 from typing import Any
 
 
-class BaseMessageBuilder(abc.ABC):
-    text: str = ""
-    reply_markup: Any
+class BaseMessageBuilder:
+    _text: str = ""
+    _reply_markup: Any = None
+
+    @property
+    def text(self) -> str:
+        return self._text
+
+    @property
+    def reply_markup(self) -> Any | None:
+        return self._reply_markup
 
     def build(self):
         content = {"text": self.text}

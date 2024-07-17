@@ -17,8 +17,7 @@ async def telegram_view_factory() -> TelegramWebhookView:
 
     dispatcher = Dispatcher()
     dispatcher.message.register(start_handler, CommandStart())
-    dispatcher.callback_query.register(start_add_friend_handler, F.data == 'friend')
+    dispatcher.callback_query.register(start_add_friend_handler, F.data == "friend")
     dispatcher.message.register(start_add_friend_handler, Command("friend"))
-
 
     return TelegramWebhookView(dispatcher=dispatcher, bot=bot)

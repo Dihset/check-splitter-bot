@@ -4,16 +4,11 @@ from src.bot.messages.base import BaseMessageBuilder
 
 
 class AddFriendMessageBuilder(BaseMessageBuilder):
-    text = (
-        "🤝 Хорошо, давайте добавим нового друга. \n"
-        "Выберите способ добавления:"
+    _text = "🤝 Хорошо, давай добавим нового друга. \n\nВыбери способ добавления:"
+    _reply_markup = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="1️⃣ Добавить вручную", url="https://ya.ru")],
+            [InlineKeyboardButton(text="2️⃣ Отправить приглашение", url="https://ya.ru")],
+            [InlineKeyboardButton(text="🔙 Назад", url="https://ya.ru")],
+        ],
     )
-    reply_markup=InlineKeyboardMarkup(
-            inline_keyboard=[
-                [
-                    InlineKeyboardButton(text="Добавить вручную", url="https://ya.ru"),
-                    InlineKeyboardButton(text="Отправить приглашение", url="https://ya.ru"),
-                ]
-            ],
-            #resize_keyboard=True,
-        )
