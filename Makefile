@@ -2,6 +2,7 @@
 
 SHELL=/bin/bash -e
 STORAGES=docker-compose/storages.yaml
+MONITORING=docker-compose/monitoring.yaml
 
 lint:
 	poetry run ruff check --fix .
@@ -11,6 +12,9 @@ format:
 
 up_storages:
 	docker-compose --env-file .env -f ${STORAGES} up -d
+
+up_monitoring:
+	docker-compose --env-file .env -f ${MONITORING} up -d
 
 down:
 	docker-compose --env-file .env-f ${STORAGES} down

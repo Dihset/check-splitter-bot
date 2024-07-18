@@ -10,4 +10,5 @@ class Environment(str, Enum):
 
 
 class GeneralSettings(BaseSettings):
+    SERVICE_NAME: str = "check-splitter"
     ENVIRONMENT: Environment = Environment.DEV

@@ -6,13 +6,12 @@ from src.core.configs.general import Environment, GeneralSettings
 
 
 class LoggingSettings(GeneralSettings):
-    ELASTIC_APM_SERVICE_NAME: str | None = None
     ELASTIC_APM_SERVER: str | None = None
 
     @property
     def ELASTIC_APM(self) -> dict[str, str]:
         return {
-            "SERVICE_NAME": self.ELASTIC_APM_SERVICE_NAME,
+            "SERVICE_NAME": self.SERVICE_NAME,
             "SERVER_URL": self.ELASTIC_APM_SERVER,
             "ENVIRONMENT": self.ENVIRONMENT,
             "CAPTURE_BODY": "all",

@@ -9,7 +9,8 @@ class AddFriendMessageBuilder(BaseMessageBuilder):
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text="1️⃣ Добавить вручную", callback_data="add_friend_manually"
+                    text="1️⃣ Добавить вручную",
+                    callback_data="add_friend_manually",
                 )
             ],
             [InlineKeyboardButton(text="2️⃣ Отправить приглашение", url="https://ya.ru")],
@@ -27,7 +28,7 @@ class AddFriendsManuallyMessageBuilder(BaseMessageBuilder):
     )
 
 
-class GetFriendFequestMessageBuilder(BaseMessageBuilder):
+class GetFriendRequestMessageBuilder(BaseMessageBuilder):
     def __init__(self, user_ref_id: str) -> None:
         self.user_ref_id = user_ref_id
 
