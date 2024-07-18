@@ -18,3 +18,9 @@ up_monitoring:
 
 down:
 	docker-compose --env-file .env-f ${STORAGES} down
+
+migrate: ## migrate dev
+	alembic upgrade head
+
+makemigrations: ## makemigrations dev
+	alembic revision --autogenerate -m="$(m)"
