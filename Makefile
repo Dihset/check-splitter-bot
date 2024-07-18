@@ -24,3 +24,6 @@ migrate: ## migrate dev
 
 makemigrations: ## makemigrations dev
 	alembic revision --autogenerate -m="$(m)"
+
+downgrade:
+	alembic downgrade -1
