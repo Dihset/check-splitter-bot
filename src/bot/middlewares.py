@@ -15,16 +15,14 @@ class GetOrCreateUserMiddleware(BaseMiddleware):
         event: Message | CallbackQuery,
         data: dict[str, Any],
     ) -> Any:
-        if isinstance(event, Message):
-            chat = event.chat
-        if isinstance(event, CallbackQuery):
-            chat = event.message.chat
+        telegram_user = data["event_from_user"]
 
         user = User(
-            telegram_id=str(chat.id),
-            first_name=chat.first_name,
-            last_name=chat.last_name,
-            username=chat.username,
+            telegram_id=str(telegram_user.id),
+            first_name=telegram_user.first_name,
+            last_name=telegram_user.last_name,
+            username=telegram_user.username,
+            language_code=telegram_user.language_code,
         )
 
         container = get_container()
