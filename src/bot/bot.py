@@ -8,6 +8,7 @@ from src.bot.handlers.add_friends_handlers import (
     start_add_friend_handler,
 )
 from src.bot.handlers.start_handler import start_handler
+from src.bot.middlewares import GetOrCreateUserMiddleware
 from src.bot.view import TelegramWebhookView
 from src.core.configs import settings
 
@@ -19,6 +20,10 @@ async def telegram_view_factory() -> TelegramWebhookView:
     await bot.set_webhook(settings.TELEGRAM_WEB_HOOK)
 
     dispatcher = Dispatcher()
+
+    dispatcher.message.middleware(GetOrCreateUserMiddleware())
+    dispatcher.callback_query.middleware(GetOrCreateUserMiddleware())
+
     dispatcher.message.register(start_handler, CommandStart())
     dispatcher.callback_query.register(start_handler, F.data == "start")
 

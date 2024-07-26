@@ -27,6 +27,7 @@ class CompositeHealthcheckService(IHealthCheckService):
     services: list[IHealthCheckService]
 
     async def check(self) -> dict[str, bool]:
+        # TODO Refactoring gather
         results = await gather_and_wait([service.check() for service in self.services])
 
         ans = {}

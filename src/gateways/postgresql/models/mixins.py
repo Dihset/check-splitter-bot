@@ -1,4 +1,5 @@
 from datetime import datetime
+from uuid import UUID, uuid4
 
 from sqlalchemy import func
 from sqlalchemy.orm import Mapped, mapped_column
@@ -28,3 +29,7 @@ class UpdatedAtMixin(CreatedAtOnlyMixin):
     @property
     def updated_date(self) -> datetime:
         return self.updated_at.replace(microsecond=0, tzinfo=None)
+
+
+class UUIDOidMixin:
+    oid: Mapped[UUID] = mapped_column(primary_key=True, unique=True, default=uuid4)
