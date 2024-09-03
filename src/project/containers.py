@@ -3,7 +3,8 @@ from functools import lru_cache
 import punq
 
 from src.domain.services.healthcheck import IHealthCheckService
-from src.domain.services.user import IUserService
+from src.domain.services.user import IFriendService, IUserService
+from src.domain.use_cases.user import AddFriendsUseCase
 from src.gateways.postgresql.database import Database
 from src.gateways.postgresql.repositories.user import IUserRepository, ORMUserRepository
 from src.project.configs import settings
@@ -32,7 +33,9 @@ def _init_container() -> punq.Container:
     )
 
     container.register(IUserRepository, ORMUserRepository)
+    
     container.register(IUserService, ORMUserService)
+    container.register(IFriendService, ORMUserService)
 
     container.register(PostgresHealthcheckService)
 
@@ -43,5 +46,7 @@ def _init_container() -> punq.Container:
         return CompositeHealthcheckService(services=services)
 
     container.register(IHealthCheckService, factory=healthcheck_service_factory)
+
+    container.register(AddFriendsUseCase)
 
     return container

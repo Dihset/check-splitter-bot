@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from sqlalchemy import select
 
 from src.gateways.postgresql.database import Database
-from src.gateways.postgresql.models.user import UserORM
+from src.gateways.postgresql.models.user import FriendORM, UserORM
 
 
 class IUserRepository(ABC):
@@ -20,6 +20,9 @@ class IUserRepository(ABC):
     async def get_or_create(self, user: UserORM) -> UserORM:
         pass
 
+    @abstractmethod
+    async def add_friend(self, user: UserORM, friend: UserORM) -> None:
+        pass
 
 @dataclass
 class ORMUserRepository(IUserRepository):
@@ -38,3 +41,8 @@ class ORMUserRepository(IUserRepository):
     async def get_or_create(self, user: UserORM) -> UserORM:
         db_user = await self.get_by_telegram_id(user.telegram_id)
         return db_user or await self.create(user)
+
+    async def add_friend(self, user: UserORM, friend: UserORM) -> None:
+        async with self.database.get_session() as session:
+            session.add(FriendORM(user_oid=user.oid, friend_oid=friend.oid, name=friend.username))
+            session.add(FriendORM(user_oid=friend.oid, friend_oid=user.oid, name=user.username))
