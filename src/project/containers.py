@@ -2,11 +2,11 @@ from functools import lru_cache
 
 import punq
 
-from src.core.configs import settings
 from src.domain.services.healthcheck import IHealthCheckService
 from src.domain.services.user import IUserService
 from src.gateways.postgresql.database import Database
 from src.gateways.postgresql.repositories.user import IUserRepository, ORMUserRepository
+from src.project.configs import settings
 from src.services.healthcheck import (
     CompositeHealthcheckService,
     PostgresHealthcheckService,
@@ -26,7 +26,8 @@ def _init_container() -> punq.Container:
         Database,
         scope=punq.Scope.singleton,
         factory=lambda: Database(
-            url=settings.POSTGRES_DB_URL, ro_url=settings.POSTGRES_DB_URL
+            url=settings.POSTGRES_DB_URL,
+            ro_url=settings.POSTGRES_DB_URL,
         ),
     )
 

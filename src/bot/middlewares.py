@@ -3,9 +3,9 @@ from typing import Any, Awaitable, Callable
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message
 
-from src.core.containers import get_container
 from src.domain.entities.user import User
 from src.domain.services.user import IUserService
+from src.project.containers import get_container
 
 
 class GetOrCreateUserMiddleware(BaseMiddleware):

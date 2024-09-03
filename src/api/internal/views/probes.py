@@ -1,7 +1,7 @@
 from aiohttp import web
 
-from src.core.containers import get_container
 from src.domain.services.healthcheck import IHealthCheckService
+from src.project.containers import get_container
 
 
 async def heathcheck_view(request: web.Request) -> web.Response:

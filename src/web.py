@@ -3,7 +3,7 @@ from elasticapm.contrib.aiohttp import ElasticAPM
 
 from src.api.internal.router import router as internal_router
 from src.bot.bot import telegram_view_factory
-from src.core.configs import settings
+from src.project.configs import settings
 
 
 async def init_app() -> web.Application:

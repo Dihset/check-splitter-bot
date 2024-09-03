@@ -1,6 +1,6 @@
 from pydantic import model_validator
 
-from src.core.configs.general import GeneralSettings
+from src.project.configs.general import GeneralSettings
 
 
 class PostgresSettings(GeneralSettings):

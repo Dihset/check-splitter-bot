@@ -5,6 +5,7 @@ class TelegramSettings(BaseSettings):
     TELEGRAM_API_KEY: str
     TELEGRAM_WEBHOOK_HOST: str
     TELEGRAM_WEBHOOK_PATH: str
+    TELEGRAM_BOT_NAME: str
 
     @property
     def TELEGRAM_WEB_HOOK(self) -> str:

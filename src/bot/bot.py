@@ -10,7 +10,7 @@ from src.bot.handlers.add_friends_handlers import (
 from src.bot.handlers.start_handler import start_handler
 from src.bot.middlewares import GetOrCreateUserMiddleware
 from src.bot.view import TelegramWebhookView
-from src.core.configs import settings
+from src.project.configs import settings
 
 logger = logging.getLogger(__name__)
 
