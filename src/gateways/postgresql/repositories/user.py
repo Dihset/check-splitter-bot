@@ -24,6 +24,7 @@ class IUserRepository(ABC):
     async def add_friend(self, user: UserORM, friend: UserORM) -> None:
         pass
 
+
 @dataclass
 class ORMUserRepository(IUserRepository):
     database: Database
@@ -44,5 +45,17 @@ class ORMUserRepository(IUserRepository):
 
     async def add_friend(self, user: UserORM, friend: UserORM) -> None:
         async with self.database.get_session() as session:
-            session.add(FriendORM(user_oid=user.oid, friend_oid=friend.oid, name=friend.username))
-            session.add(FriendORM(user_oid=friend.oid, friend_oid=user.oid, name=user.username))
+            session.add(
+                FriendORM(
+                    user_oid=user.oid,
+                    friend_oid=friend.oid,
+                    name=friend.username,
+                )
+            )
+            session.add(
+                FriendORM(
+                    user_oid=friend.oid,
+                    friend_oid=user.oid,
+                    name=user.username,
+                )
+            )

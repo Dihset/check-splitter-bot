@@ -27,3 +27,11 @@ class PostgresSettings(GeneralSettings):
         )
 
         return values
+
+    @property
+    def test_postgres_db(self) -> str:
+        return f"test_{self.POSTGRES_DB}"
+
+    @property
+    def test_postgres_url(self) -> str:
+        return f"postgresql+asyncpg://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.test_postgres_db}"

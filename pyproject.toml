@@ -22,6 +22,9 @@ alembic = "^1.13.2"
 ipython = "^8.25.0"
 ipykernel = "^6.29.4"
 ruff = "^0.5.0"
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24.0"
+polyfactory = "^2.17.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -44,3 +47,7 @@ ignore = [
     "W191",  # indentation contains tabs
     "W291",
 ]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

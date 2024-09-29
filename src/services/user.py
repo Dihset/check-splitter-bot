@@ -17,4 +17,4 @@ class ORMUserService(IUserService, IFriendService):
     async def add_friend(self, user: User, friend: User) -> None:
         user_dto = UserORM.from_entity(user)
         friend_dto = await self.repository.get_or_create(UserORM.from_entity(friend))
-        await self.repository.add_friend(user_dto, friend_dto) 
+        await self.repository.add_friend(user_dto, friend_dto)

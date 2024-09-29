@@ -33,7 +33,7 @@ def _init_container() -> punq.Container:
     )
 
     container.register(IUserRepository, ORMUserRepository)
-    
+
     container.register(IUserService, ORMUserService)
     container.register(IFriendService, ORMUserService)
 

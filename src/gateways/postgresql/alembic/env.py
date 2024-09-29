@@ -5,6 +5,7 @@ from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
+from sqlalchemy.util.concurrency import await_only, in_greenlet
 
 from src.gateways.postgresql.models import *  # noqa F403
 from src.gateways.postgresql.models.base import BaseORM
@@ -29,7 +30,8 @@ target_metadata = BaseORM.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
-config.set_main_option("sqlalchemy.url", settings.POSTGRES_DB_URL)
+if config.get_main_option("sqlalchemy.url") != settings.test_postgres_url:
+    config.set_main_option("sqlalchemy.url", settings.POSTGRES_DB_URL)
 
 
 def include_name(name, type_, parent_names):
@@ -88,8 +90,10 @@ async def run_async_migrations() -> None:
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
-
-    asyncio.run(run_async_migrations())
+    if in_greenlet():
+        await_only(run_async_migrations())
+    else:
+        asyncio.run(run_async_migrations())
 
 
 if context.is_offline_mode():
