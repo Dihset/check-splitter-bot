@@ -13,23 +13,52 @@ async def use_case(container) -> AddFriendsUseCase:
 
 
 @pytest.fixture
+async def user_service(container) -> IUserService:
+    return container.resolve(IUserService)
+
+
+@pytest.fixture
 async def friend_service(container) -> IFriendService:
     return container.resolve(IFriendService)
 
 
 @pytest.fixture
-async def first_user(container) -> User:
-    user_service: IUserService = container.resolve(IUserService)
+async def one_user(user_service: IUserService) -> User:
     return await user_service.get_or_create(User(oid=uuid.uuid4(), username="SomeName"))
 
 
-async def test_base_add_friend(
+@pytest.fixture
+async def duo_users(user_service: IUserService) -> tuple[User, User]:
+    first_user = await user_service.get_or_create(User(oid=uuid.uuid4(), username="SomeName"))
+    second_user = await user_service.get_or_create(
+        User(oid=uuid.uuid4(), username="SomeName2")
+    )
+    return first_user, second_user
+
+
+async def test_add_not_exist_friend(
     use_case: AddFriendsUseCase,
     friend_service: IFriendService,
-    first_user: User,
+    one_user: User,
 ):
-    user = first_user
+    user = one_user
     user_friend = User(username="SomeName2")
+    command = AddFriendCommand(
+        user=user,
+        friend=user_friend,
+    )
+    await use_case.execute(command)
+
+    friens = await friend_service.get_friends(user_oid=user.oid)
+    assert any(friend.username == user_friend.username for friend in friens)
+
+
+async def test_add_not_existed_friend(
+    use_case: AddFriendsUseCase,
+    friend_service: IFriendService,
+    duo_users: tuple[User, User],
+):
+    user, user_friend = duo_users
     command = AddFriendCommand(
         user=user,
         friend=user_friend,

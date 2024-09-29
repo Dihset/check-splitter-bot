@@ -16,7 +16,7 @@ class IUserService(ABC):
     @abstractmethod
     async def get_by_oid(self, oid: UUID) -> User | None:
         pass
-    
+
     @abstractmethod
     async def get_or_create(self, user: User) -> User:
         pass

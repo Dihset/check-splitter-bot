@@ -27,7 +27,7 @@ class ORMUserService(IUserService, IFriendService):
             if not user_dto:
                 return None
             return user_dto.to_entity()
-        
+
     async def get_by_oid(self, oid: str) -> User | None:
         stmt = select(UserORM).where(UserORM.oid == oid).limit(1)
         async with self.database.get_read_only_session() as session:
@@ -37,7 +37,7 @@ class ORMUserService(IUserService, IFriendService):
             return user_dto.to_entity()
 
     async def get_or_create(self, user: User) -> User:
-        ans_user = await self.get_by_oid(user.telegram_id)
+        ans_user = await self.get_by_oid(user.oid)
         if not ans_user:
             return await self.create(user)
         return ans_user
