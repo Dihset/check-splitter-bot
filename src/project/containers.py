@@ -6,7 +6,6 @@ from src.domain.services.healthcheck import IHealthCheckService
 from src.domain.services.user import IFriendService, IUserService
 from src.domain.use_cases.user import AddFriendsUseCase
 from src.gateways.postgresql.database import Database
-from src.gateways.postgresql.repositories.user import IUserRepository, ORMUserRepository
 from src.project.configs import settings
 from src.services.healthcheck import (
     CompositeHealthcheckService,
@@ -31,8 +30,6 @@ def _init_container() -> punq.Container:
             ro_url=settings.POSTGRES_DB_URL,
         ),
     )
-
-    container.register(IUserRepository, ORMUserRepository)
 
     container.register(IUserService, ORMUserService)
     container.register(IFriendService, ORMUserService)
